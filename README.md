@@ -1,10 +1,10 @@
 # DoctorBot
 
-This project is developed for MIT ADT University, as a part of mini project. We
+This project is developed for MIT ADT University, as a part of mini project Semester VI
 
 ### Preview
 
-![Preview](DoctorBOT.gif)
+![Preview](media/DoctorBOT.gif)
 
 ## Getting Started
 

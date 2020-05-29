@@ -4,7 +4,7 @@ import nltk
 import random
 import string
 import warnings
-import numpy as np
+# import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
@@ -17,19 +17,15 @@ from gtts import gTTS
 nltk.download('punkt', quiet=True)
 nltk.download('wordnet', quiet=True)
 
-f = open('corpus.txt', 'r', errors='ignore')
+f = open('media/corpus.txt', 'r', errors='ignore')
 raw = f.read()
-# print(raw)
 
 raw_ = raw.lower()
-# print(raw_)
 
 text = raw
 
 # converts to list of sentences 
 sent_tokens = nltk.sent_tokenize(text)
-# print("Sent Tokens")
-# print(sent_tokens)
 
 # WordNet is a NLTK based dictionary of English
 lemmer = nltk.stem.WordNetLemmatizer()
@@ -85,9 +81,7 @@ def seperation():
 
 def audio_output(texto):
     tts = gTTS(texto)
-    tts.save('/content/audio.mp3')
-    # speak(texto)
-    # os.system("mpg123 " + audio.mp3)
+    tts.save('/media/audio.mp3')
 
 
 def response_generator(user_response):
@@ -115,11 +109,4 @@ def response_generator(user_response):
         # print("Doctorbot: Bye! take care stay home stay safe")
         return "Bye! take care stay home stay safe"
 
-# flag=True
-# print("Doctorbot: My name is Doctorbot. I'm an informative Chatbot for Coronavirus. If you want to exit, type 'exit'")
-# while(flag==True):
-#     print("User:")
-#     user_response = input()
-#     #generator(user_response)
-#     result = response_generator(user_response)
-#     print (result)
+
