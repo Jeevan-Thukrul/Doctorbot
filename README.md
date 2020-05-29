@@ -2,6 +2,10 @@
 
 This project is developed for MIT ADT University, as a part of mini project. We
 
+### Preview
+
+![Preview](DoctorBOT.gif)
+
 ## Getting Started
 
 
@@ -31,54 +35,30 @@ winsound - Playing sound in Windows
 pip install winsound
 ```
 
-PyQt5 - User Interface
+Tkinter - User Interface
 ```
-pip install PyQt5
-```
-
-### Installing
-
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
-```
-Give the example
+pip install python3-tk
 ```
 
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+Install all the dependencies then run the the python script using:
+
+```
+python3 <location\filename>.py 
+```
 
 ## Built With
 
-* [Python](https://docs.python.org/3/) - 
-* [PyQt](https://pypi.org/project/PyQt5/) - User Interface
+* [Python](https://docs.python.org/3/) - Engine
+* [Tkinter](https://docs.python.org/3/library/tkinter.html) - User Interface
+
+## Developers
+
+[![GitHub](https://img.shields.io/badge/follow-AdityaSrivastava-1DA1F2?style=flat&logo=github)](https://github.com/asrivastaava) 
+
+[![GitHub](https://img.shields.io/badge/follow-GauravThakkar-1DA1F2?style=flat&logo=github)](https://github.com/ForceGT) 
+
+[![GitHub](https://img.shields.io/badge/follow-JeevanThukrul-1DA1F2?style=flat&logo=github)](https://github.com/Jeevan-Thukrul/) 
+
