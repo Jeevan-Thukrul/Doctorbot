@@ -4,13 +4,16 @@ import tkinter.messagebox
 import doctorbot
 import pyttsx3
 import threading
+import requests as r
+import json
 
 saved_username = ["You"]
 # ans=["PyBot"]
-window_size = "400x400"
+window_size = "800x800"
 
 
 class ChatInterface(Frame):
+    lst = list()
 
     def __init__(self, master=None):
         Frame.__init__(self, master)
@@ -39,8 +42,6 @@ class ChatInterface(Frame):
         menu.add_cascade(label="Options", menu=options)
         menu.add_command(label="Tracker", command=self.covidTracker)
 
-        # username
-
         # font
         font = Menu(options, tearoff=0)
         options.add_cascade(label="Font", menu=font)
@@ -66,7 +67,7 @@ class ChatInterface(Frame):
         menu.add_cascade(label="Help", menu=help_option)
         # help_option.add_command(label="Features", command=self.features_msg)
         help_option.add_command(label="About PyBot", command=self.msg)
-        help_option.add_command(label="Develpoers", command=self.about)
+        help_option.add_command(label="Developers", command=self.about)
 
         self.text_frame = Frame(self.master, bd=6)
         self.text_frame.pack(expand=True, fill=BOTH)
@@ -102,8 +103,6 @@ class ChatInterface(Frame):
         self.send_button.pack(side=LEFT, ipady=8)
         self.master.bind("<Return>", self.send_message_insert)
 
-
-
         self.last_sent_label(date="No messages sent.")
         # t2 = threading.Thread(target=self.send_message_insert(, name='t1')
         # t2.start()
@@ -122,7 +121,6 @@ class ChatInterface(Frame):
         x.say(responce)
         x.runAndWait()
         # print("Played Successfully......")
-
     def last_sent_label(self, date):
 
         try:
@@ -147,24 +145,44 @@ class ChatInterface(Frame):
         return 360.0 * n / 1000
 
     def covidTracker(self):
+        # render a table showing StateName , Confirmed Cases, Deaths, LastUpdatedTime
+        self.fetchData()
         newWindow = Tk()
         newWindow.title("Tracker")
-        self.Label(root, text='Pie Chart').pack()
-        c = self.Canvas(width=154, height=154)
-        c.create_arc((2, 2, 152, 152), fill="#FAF402", outline="#FAF402", start=self.prop(0), extent=self.prop(200))
-        c.create_arc((2, 2, 152, 152), fill="#2BFFF4", outline="#2BFFF4", start=self.prop(200), extent=self.prop(400))
-        c.create_arc((2, 2, 152, 152), fill="#E00022", outline="#E00022", start=self.prop(600), extent=self.prop(50))
-        c.create_arc((2, 2, 152, 152), fill="#7A0871", outline="#7A0871", start=self.prop(650), extent=self.prop(200))
-        c.create_arc((2, 2, 152, 152), fill="#294994", outline="#294994", start=self.prop(850), extent=self.prop(150))
-        c.pack()
-
+        # newWindow.geometry("800x800")
+        total_rows = len(self.lst)
+        total_columns = len(self.lst[0])
+        e1 = Label(newWindow, text="State", width=23, bg="#000", fg="white", font=('Arial', '18'))
+        e1.grid(row=0, column=0)
+        e2 = Label(newWindow, text="Confirmed", width=23, bg="#000", fg="white", font=('Arial', '18'))
+        e2.grid(row=0, column=1)
+        e3 = Label(newWindow, text="Deaths", width=23, bg="#000", fg="white", font=('Arial', '18'))
+        e3.grid(row=0, column=2)
+        e4 = Label(newWindow, text="LastUpdatedAt", width=23, bg="#000", fg="white", font=('Arial', '18'))
+        e4.grid(row=0, column=3)
+        for i in range(total_rows):
+            for j in range(total_columns):
+                e = Entry(newWindow, width=30, bg='#f4f6f6', fg='#cd3f3e', font=('Roboto', '12'), justify="center")
+                e.grid(row=i + 1, column=j)
+                e.insert(END, self.lst[i][j])
         root.mainloop()
 
-
+    def fetchData(self):
+        data = r.get("https://api.covid19india.org/data.json") # fetch data from the api
+        jsonContent = json.loads(data.text)
+        for i in range(int(38)):
+            stateName = jsonContent["statewise"][i]["state"]
+            confirmedNumber = jsonContent["statewise"][i]["confirmed"]
+            deaths = jsonContent["statewise"][i]["deaths"]
+            lastUpdatedAt = jsonContent["statewise"][i]["lastupdatedtime"]
+            data = (stateName, confirmedNumber, deaths, lastUpdatedAt)
+            self.lst.append(data)
 
     def msg(self):
         tkinter.messagebox.showinfo("DoctorBOT v1.0",
-                                    'DoctorBOT is a chatbot for answering covid-19 queries\nIt is based on retrival-based NLP using pythons NLTK tool-kit module\nGUI is based on Tkinter\nIt can answer questions regarding covid-19.')
+                                    "DoctorBOT is a chatbot for answering covid-19 queries\nIt is based on "
+                                    "retrieval-based NLP using pythons NLTK tool-kit module\nGUI is based on "
+                                    "Tkinter\nIt can answer questions regarding covid-19.")
 
     def about(self):
         tkinter.messagebox.showinfo("DoctorBOT Developers",
