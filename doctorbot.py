@@ -19,17 +19,17 @@ nltk.download('wordnet', quiet=True)
 
 f = open('corpus.txt', 'r', errors='ignore')
 raw = f.read()
-print(raw)
+# print(raw)
 
 raw_ = raw.lower()
-print(raw_)
+# print(raw_)
 
 text = raw
 
 # converts to list of sentences 
 sent_tokens = nltk.sent_tokenize(text)
-
-print(sent_tokens)
+# print("Sent Tokens")
+# print(sent_tokens)
 
 # WordNet is a NLTK based dictionary of English
 lemmer = nltk.stem.WordNetLemmatizer()
@@ -46,8 +46,8 @@ remove_punct_dict = dict((ord(punct), None) for punct in string.punctuation)
 def LemNormalize(text):
     return LemTokens(nltk.word_tokenize(text.lower().translate(remove_punct_dict)))
 
-
-print(LemNormalize(text))
+# print("LemNormalise")
+# print(LemNormalize(text))
 
 GREETING_INPUTS = ("hello", "hi", "greetings", "sup", "what's up", "hey",)
 GREETING_RESPONSES = ["hi", "hey", "*nods*", "hi there", "hello", "I am glad! You are talking to me"]
